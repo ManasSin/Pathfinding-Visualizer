@@ -24,3 +24,12 @@ export const END_TILE_CONFIGURATION = {
   isTraversed: false,
   parent: null,
 };
+
+export const TILE_STYLE =
+  "lg:w-[1rem] md:w-[0.9rem] xs:w-[0.6rem] w-[0.5rem] lg:h-[1rem] md:h-[0.9rem] sm:h-[0.6rem] h-[0.5rem] border-t border-r border-sky-200 ";
+
+export const TRAVERSED_TILE_STYLE = TILE_STYLE + "bg-cyan-400";
+export const START_TILE_STYLE = TILE_STYLE + "bg-green-400";
+export const END_TILE_STYLE = TILE_STYLE + "bg-red-400";
+export const WALL_TILE_STYLE = TILE_STYLE + "bg-gray-400";
+export const PATH_TILE_STYLE = TILE_STYLE + "bg-green-500";
