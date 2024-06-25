@@ -11,7 +11,7 @@ const createRow = (row: number, startTile: TileType, endTile: TileType) => {
       isWall: false,
       isPath: false,
       distance: Infinity,
-      isStart: row === startTile.row && col === endTile.col,
+      isStart: row === startTile.row && col === startTile.col,
       isTraversed: false,
       parent: null,
     });
