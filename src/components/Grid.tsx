@@ -2,11 +2,46 @@ import { twMerge } from "tailwind-merge";
 import { usePathFinding } from "../hooks/usePathFinding";
 import { MAX_COLS, MAX_ROWS } from "../utils/constants";
 import Tile from "./Tile";
+import { MutableRefObject, useState } from "react";
+import { checkIfStartOrEnd, createNewGrid } from "../utils/helpers";
 
-type Props = {};
+type Props = {
+  isVisualizationRunningRef: MutableRefObject<boolean>;
+};
 
-export function Grid({}: Props) {
-  const { grid } = usePathFinding();
+export function Grid({ isVisualizationRunningRef }: Props) {
+  const { grid, setGrid } = usePathFinding();
+  const [isMouseDown, setIsMouseDown] = useState(false);
+
+  const handleMouseDown = (row: number, col: number) => {
+    if (isVisualizationRunningRef.current || checkIfStartOrEnd(row, col)) {
+      return;
+    }
+
+    setIsMouseDown(true);
+    const newGrid = createNewGrid(grid, row, col);
+    setGrid(newGrid);
+  };
+
+  const handleMouseUp = (row: number, col: number) => {
+    if (isVisualizationRunningRef.current || checkIfStartOrEnd(row, col)) {
+      return;
+    }
+
+    setIsMouseDown(false);
+  };
+
+  const handleMouseEnter = (row: number, col: number) => {
+    if (isVisualizationRunningRef.current || checkIfStartOrEnd(row, col)) {
+      return;
+    }
+
+    if (isMouseDown) {
+      const newGrid = createNewGrid(grid, row, col);
+      setGrid(newGrid);
+    }
+  };
+
   return (
     <div
       className={twMerge(
@@ -22,10 +57,11 @@ export function Grid({}: Props) {
         }rem] sm:min-h-[${MAX_COLS * 0.5}rem] min-h-[${MAX_COLS * 0.4}rem]`
       )}
     >
-      {grid.map((row, rowIndex) => (
+      {grid.map((r, rowIndex) => (
         <div className="flex" key={rowIndex}>
-          {row.map((tile, titleIndex) => {
-            const { isEnd, isStart, isPath, isTraversed, isWall } = tile;
+          {r.map((tile, titleIndex) => {
+            const { row, col, isEnd, isStart, isPath, isTraversed, isWall } =
+              tile;
             return (
               <Tile
                 key={titleIndex}
@@ -36,6 +72,9 @@ export function Grid({}: Props) {
                 isPath={isPath}
                 isTraversed={isTraversed}
                 isWall={isWall}
+                handleMouseDown={() => handleMouseDown(row, col)}
+                handleMouseUp={() => handleMouseUp(row, col)}
+                handleMouseEnter={() => handleMouseEnter(row, col)}
               />
             );
           })}
