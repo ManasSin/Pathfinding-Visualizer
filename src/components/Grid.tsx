@@ -46,7 +46,7 @@ export function Grid({ isVisualizationRunningRef }: Props) {
     <div
       className={twMerge(
         //base classes
-        "flex flex-col items-center justify-center border-sky-300",
+        "flex flex-col items-center justify-center border-sky-300 mt-10",
         // Control Grid Height
         `lg:min-h-[${MAX_ROWS * 1}rem] md:min-h-[${
           MAX_ROWS * 0.9
