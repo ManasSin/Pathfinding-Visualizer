@@ -17,7 +17,7 @@ const Select = ({ value, onChange, label, options, isDisabled }: Props) => {
         onChange={onChange}
         id={label}
         disabled={isDisabled}
-        className="bg-gray-700 cursor-pointer hover:bg-gray-800 transition ease-in active:border-0 p-2 min-w-[200px] sm:min-w-full"
+        className="bg-gray-700 rounded-md cursor-pointer hover:bg-gray-800 transition ease-in active:border-0 p-2 min-w-[200px] sm:min-w-full"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
