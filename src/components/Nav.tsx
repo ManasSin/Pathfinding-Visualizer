@@ -64,6 +64,7 @@ const Nav = ({ isVisualizationRunningRef }: Props) => {
       return;
     }
 
+    // @ts-expect-error TS2339: Property 'algorithms' does not exist on type 'typeof Nav'.
     const { traversedTiles, path } = runPathfindingAlgorithm({
       algorithms,
       grid,
